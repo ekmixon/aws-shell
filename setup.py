@@ -16,10 +16,9 @@ requires = [
 
 with open('awsshell/__init__.py', 'r') as f:
     version = str(
-        ast.literal_eval(
-            re.search(
-                r'__version__\s+=\s+(.*)',
-                f.read()).group(1)))
+        ast.literal_eval(re.search(r'__version__\s+=\s+(.*)', f.read())[1])
+    )
+
 
 
 setup(

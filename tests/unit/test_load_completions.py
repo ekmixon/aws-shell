@@ -45,5 +45,4 @@ class LoadCompletionsTest(unittest.TestCase):
             'create-device-pool', 'bar']
         assert self.completion_index.global_opts == [
             '--debug', '--endpoint-url']
-        assert self.completion_index.args_opts == set([
-            '--project-arn', '--name', '--baz'])
+        assert self.completion_index.args_opts == {'--project-arn', '--name', '--baz'}

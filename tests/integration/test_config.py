@@ -34,10 +34,10 @@ class ConfigTest(unittest.TestCase):
         self.aws_shell.theme = 'none'
         self.aws_shell.save_config()
         self.aws_shell.load_config()
-        assert self.aws_shell.model_completer.match_fuzzy == False
-        assert self.aws_shell.enable_vi_bindings == False
-        assert self.aws_shell.show_completion_columns == False
-        assert self.aws_shell.show_help == False
+        assert not self.aws_shell.model_completer.match_fuzzy
+        assert not self.aws_shell.enable_vi_bindings
+        assert not self.aws_shell.show_completion_columns
+        assert not self.aws_shell.show_help
         assert self.aws_shell.theme == 'none'
 
     def test_config_on(self):

@@ -8,8 +8,7 @@ import pytest
 def cloudformation_command():
     driver = awscli.clidriver.create_clidriver()
     cmd = driver.create_help_command()
-    cfn = cmd.command_table['cloudformation']
-    return cfn
+    return cmd.command_table['cloudformation']
 
 
 def test_can_write_doc_index_for_single_operation(cloudformation_command):

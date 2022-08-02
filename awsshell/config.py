@@ -82,11 +82,10 @@ class Config(object):
         config_path = os.path.expanduser(config_path)
         if not overwrite and os.path.isfile(config_path):
             return
-        else:
-            try:
-                config_path_dir_name = os.path.dirname(config_path)
-                os.makedirs(config_path_dir_name)
-            except OSError:
-                if not os.path.isdir(config_path_dir_name):
-                    raise
-            shutil.copyfile(template_path, config_path)
+        try:
+            config_path_dir_name = os.path.dirname(config_path)
+            os.makedirs(config_path_dir_name)
+        except OSError:
+            if not os.path.isdir(config_path_dir_name):
+                raise
+        shutil.copyfile(template_path, config_path)

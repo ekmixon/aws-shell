@@ -36,7 +36,7 @@ def temporary_file(mode):
     another process" error.
     """
     tempdir = tempfile.gettempdir()
-    basename = 'tmpfile-%s' % (uuid.uuid4())
+    basename = f'tmpfile-{uuid.uuid4()}'
     full_filename = os.path.join(tempdir, basename)
     if 'w' not in mode:
         # We need to create the file before we can open
@@ -76,10 +76,7 @@ class FSLayer(object):
         If you want binary content use ``mode='rb'``.
 
         """
-        if binary:
-            mode = 'rb'
-        else:
-            mode = 'r'
+        mode = 'rb' if binary else 'r'
         try:
             with open(filename, mode) as f:
                 return f.read()

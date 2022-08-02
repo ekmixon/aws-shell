@@ -50,8 +50,8 @@ def index_command(index_dict, help_command):
             )
             metadata['example'] = example
 
-        index_dict['arguments'].append('--%s' % arg)
-        index_dict['argument_metadata']['--%s' % arg] = metadata
+        index_dict['arguments'].append(f'--{arg}')
+        index_dict['argument_metadata'][f'--{arg}'] = metadata
     for cmd in help_command.command_table:
         index_dict['commands'].append(cmd)
         # Each sub command will trigger a recurse.

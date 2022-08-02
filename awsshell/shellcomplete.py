@@ -47,8 +47,7 @@ class AWSShellCompleter(Completer):
 
         client_creator = index.CachedClientCreator(session)
         describer = index.CompleterDescriberCreator(loader)
-        completer = index.ServerSideCompleter(client_creator, describer)
-        return completer
+        return index.ServerSideCompleter(client_creator, describer)
 
     def change_profile(self, profile_name):
         """Change the profile used for server side completions."""
@@ -88,13 +87,9 @@ class AWSShellCompleter(Completer):
             if completion.startswith('--') and completion in arg_meta:
                 # TODO: Need to handle merging in global options as well.
                 meta = arg_meta[completion]
-                if meta['required']:
-                    display_text = '%s (required)' % completion
-                else:
-                    display_text = completion
+                display_text = f'{completion} (required)' if meta['required'] else completion
                 type_name = arg_meta[completion]['type_name']
-                display_meta = '[%s] %s' % (type_name,
-                                            arg_meta[completion]['minidoc'])
+                display_meta = f"[{type_name}] {arg_meta[completion]['minidoc']}"
             else:
                 display_text = completion
                 display_meta = ''
@@ -132,13 +127,13 @@ class AWSShellCompleter(Completer):
                 LOG.debug("Trying to retrieve autcompletion for: "
                           "%s, %s, %s", service, operation, param)
                 results = self._server_side_completer\
-                    .retrieve_candidate_values(service, operation, param)
+                        .retrieve_candidate_values(service, operation, param)
                 LOG.debug("Results for %s, %s, %s: %s",
                           service, operation, param, results)
                 word_before_cursor = text_before_cursor.strip().split()[-1]
                 location = 0
                 if text_before_cursor[-1] != ' ' and \
-                        word_before_cursor and results:
+                            word_before_cursor and results:
                     # Filter the results down by fuzzy searching what
                     # the user has provided.
                     results = fuzzy.fuzzy_search(word_before_cursor, results)
@@ -150,5 +145,4 @@ class AWSShellCompleter(Completer):
                                          display=result,
                                          display_meta='')
         else:
-            for c in prompt_completions:
-                yield c
+            yield from prompt_completions

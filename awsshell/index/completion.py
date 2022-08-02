@@ -66,8 +66,7 @@ class CompletionIndex(object):
         return contents
 
     def _filename_for_version(self, version_string):
-        return os.path.join(
-            self._cache_dir, 'completions-%s.json' % version_string)
+        return os.path.join(self._cache_dir, f'completions-{version_string}.json')
 
     def load_completions(self):
         """Load completions from the completion index.

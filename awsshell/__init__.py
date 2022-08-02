@@ -20,7 +20,7 @@ def determine_doc_index_filename():
     import awscli
     base = loaders.JSONIndexLoader.index_filename(
         awscli.__version__)
-    return base + '.docs'
+    return f'{base}.docs'
 
 
 def load_index(filename):

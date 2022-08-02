@@ -44,7 +44,7 @@ class StyleFactory(object):
 
         # Create a style dictionary.
         styles = {}
-        styles.update(style.styles)
+        styles |= style.styles
         styles.update(default_style_extensions)
         t = Token
         styles.update({

@@ -68,10 +68,7 @@ def calculate_score(search_string, word):
         i = word.find(search_char)
         if i < 0:
             return 0
-        if i > 0 and word[i - 1] == '-':
-            scale = 0.95
-        else:
-            scale = 1 - (i / float(len(word)))
+        scale = 0.95 if i > 0 and word[i - 1] == '-' else 1 - (i / float(len(word)))
         score *= scale
         word = word[i + 1:]
         search_index += 1

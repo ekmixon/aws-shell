@@ -309,7 +309,7 @@ class AWSShell(object):
                         # Then run the rest as a normally shell command.
                         full_cmd = text[1:]
                     else:
-                        full_cmd = 'aws ' + text
+                        full_cmd = f'aws {text}'
                         self.history.append(full_cmd)
                     self.current_docs = u''
                     self.cli.buffers['clidocs'].reset(
@@ -335,9 +335,7 @@ class AWSShell(object):
 
     def create_layout(self, display_completions_in_columns, toolbar):
         from awsshell.lexer import ShellLexer
-        lexer = ShellLexer
-        if self.config_section['theme'] == 'none':
-            lexer = None
+        lexer = None if self.config_section['theme'] == 'none' else ShellLexer
         return create_default_layout(
             self, u'aws> ', lexer=lexer, reserve_space_for_menu=True,
             display_completions_in_columns=display_completions_in_columns,
@@ -425,11 +423,7 @@ class AWSShell(object):
             'clidocs': Buffer(read_only=True)
         }
 
-        if self.enable_vi_bindings:
-            editing_mode = EditingMode.VI
-        else:
-            editing_mode = EditingMode.EMACS
-
+        editing_mode = EditingMode.VI if self.enable_vi_bindings else EditingMode.EMACS
         return Application(
             editing_mode=editing_mode,
             layout=self.create_layout(display_completions_in_columns, toolbar),
@@ -453,8 +447,7 @@ class AWSShell(object):
         if text.strip():
             command = self.completer.current_command
             key_name = '.'.join(command.split()).encode('utf-8')
-            last_option = self.completer.last_option
-            if last_option:
+            if last_option := self.completer.last_option:
                 self.current_docs = self._docs.extract_param(
                     key_name, last_option)
             else:
@@ -483,9 +476,9 @@ class AWSShell(object):
         app = self.create_application(self.completer,
                                       self.file_history,
                                       display_completions_in_columns)
-        cli = CommandLineInterface(application=app, eventloop=loop,
-                                   input=self._input, output=self._output)
-        return cli
+        return CommandLineInterface(
+            application=app, eventloop=loop, input=self._input, output=self._output
+        )
 
     @property
     def profile(self):

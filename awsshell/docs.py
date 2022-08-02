@@ -8,8 +8,7 @@ def load_lazy_doc_index(filename):
 
 
 def load_doc_db(filename):
-    d = db.ConcurrentDBM.open(filename, create=True)
-    return d
+    return db.ConcurrentDBM.open(filename, create=True)
 
 
 class DocRetriever(object):

@@ -9,8 +9,7 @@ class JSONIndexLoader(object):
 
     @staticmethod
     def index_filename(version_string, type_name='completions'):
-        return build_config_file_path(
-            '%s-%s.json' % (version_string, type_name))
+        return build_config_file_path(f'{version_string}-{type_name}.json')
 
     def load_index(self, filename):
         with open(filename, 'r') as f:

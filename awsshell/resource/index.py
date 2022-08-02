@@ -176,8 +176,7 @@ class CompleterDescriberCreator(object):
     def _create_completer_query(self, service_name):
         completions_model = self._loader.load_service_model(
             service_name, 'completions-1')
-        cq = CompleterDescriber({service_name: completions_model})
-        return cq
+        return CompleterDescriber({service_name: completions_model})
 
     def services_with_completions(self):
         if self._services_with_completions is not None:
@@ -247,8 +246,7 @@ class ServerSideCompleter(object):
             LOG.debug("Error when calling %s.%s: %s", service,
                       result.operation, e, exc_info=True)
             return
-        results = jmespath.search(result.path, response)
-        return results
+        return jmespath.search(result.path, response)
 
 
 def main():

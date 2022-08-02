@@ -5,8 +5,7 @@ import pytest
 @pytest.fixture
 def shell_db(tmpdir):
     filename = tmpdir.join('docs.db').strpath
-    d = db.ConcurrentDBM.create(filename)
-    return d
+    return db.ConcurrentDBM.create(filename)
 
 
 def test_can_get_and_set_value(shell_db):

@@ -211,13 +211,17 @@ def test_cached_client_creator_returns_same_instance():
 
 
 def test_can_create_service_completers_from_cache():
+
+
+
     class FakeDescriberCreator(object):
         def load_service_model(self, service_name, type_name):
             assert type_name == 'completions-1'
-            return "fake_completions_for_%s" % service_name
+            return f"fake_completions_for_{service_name}"
 
         def services_with_completions(self):
             return []
+
 
     loader = FakeDescriberCreator()
     factory = index.CompleterDescriberCreator(loader)

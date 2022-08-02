@@ -9,9 +9,8 @@ class ConcurrentDBM(object):
     def open(cls, filename, create=False):
         if create and not os.path.isfile(filename):
             return cls.create(filename)
-        else:
-            db = sqlite3.connect(filename)
-            return cls(db)
+        db = sqlite3.connect(filename)
+        return cls(db)
 
     @classmethod
     def create(cls, filename):
